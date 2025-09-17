@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="m-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @users.each do |user| %>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" class="card-img-top w-50 mx-auto p-2 mt-3" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%=user.name%> </h5>
+              <p class="card-text"> <%=user.address%> </p>
+              <p class="card-text"> <%=user.phone%> </p>
+              <p class="card-text"> <%=user.logged_in_from_ip%> </p>
+              <p class="card-text"> <%=user.last_logged_in_at%> </p>
+
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
