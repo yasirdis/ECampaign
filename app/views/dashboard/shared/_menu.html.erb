@@ -6,4 +6,6 @@
   <div class="offcanvas-body">
     <p>Try scrolling the rest of the page to see this option in action.</p>
   </div>
+    <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-danger" %>
+
 </div>

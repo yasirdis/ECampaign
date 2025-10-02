@@ -6,7 +6,7 @@ module LayoutHelper
     if lookup_context.exists?(path, [], true)
       path
     else
-      "shared/#{name}" # fallback to global partials
+      "dashboard/shared/#{name}" # fallback to global partials
     end
   end
 end
