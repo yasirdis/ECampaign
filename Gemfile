@@ -39,6 +39,7 @@ gem 'autoprefixer-rails'
 gem 'popper_js', '~> 2.11.8'
 
 
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
@@ -70,3 +71,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "cssbundling-rails", "~> 1.4"
