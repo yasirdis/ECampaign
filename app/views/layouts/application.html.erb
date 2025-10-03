@@ -30,10 +30,15 @@
     <% if user_signed_in? %>
       <%= render module_partial("menu") %>
     <% end %>
-    <%= yield %>
+
+    <div class="pt-5">
+      <%= yield %>
+    </div>
+    
     
     <!-- Footer -->
     <%= turbo_frame_tag "footer" do %>
       <%= render module_partial("footer") %>
-    <% end %>  </body>
+    <% end %>  
+  </body>
 </html>

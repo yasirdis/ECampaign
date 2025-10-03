@@ -1,15 +1,16 @@
-<header>
-    <nav class="navbar bg-body-tertiary">
+<header class="pb-5">
+    <nav class="navbar navbar-dark primary-bg-image cotainer fixed-top">
   <div class="container-fluid">
+    <% if user_signed_in? %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+          <span class="navbar-toggler-icon border-white"></span>
+        </button>
+      <% end %>
     <a class="navbar-brand" href="#">
       <%= turbo_frame_tag "logo" do %>
         <%= render module_partial("logo") %>
       <% end %>
     </a>
-      <%# <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> %>
-      <% if user_signed_in? %>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Meanu <i class="bi bi-arrow-right-square-fill"></i></button>
-      <% end %>
   </div>
 </nav>
 </header>
