@@ -11,8 +11,9 @@
               <p class="card-text"> <i class="bi bi-telephone-fill"></i> <%=user.phone%> </p>
               <p class="card-text"> <i class="bi bi-globe"></i> <%=user.logged_in_from_ip%> </p>
               <p class="card-text"> Last Login At: <%=user.last_logged_in_at%> </p>
-
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text"> Roles: <%=user.roles.map(&:name).join(", ") %> </p>
+              <p class="card-text"> Organizations: <%=user.organizations.map(&:name).join(", ") %> </p>
+              <a href="#" class="btn btn-primary">View</a>
             </div>
           </div>
         </div>
