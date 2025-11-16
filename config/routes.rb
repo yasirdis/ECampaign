@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     resources :users
     resources :analytics
+    resources :campaign_templates
   end
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
