@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users,
-              controllers: { sessions: 'dashboard/sessions' },
+              controllers: { sessions: "dashboard/sessions" },
               only: [ :sessions, :registrations, :passwords ],
               path: "dashboard"
   # path_names: { sign_in: 'login', sign_out: 'logout' }
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     resources :users
     resources :analytics
-    resources :campaign_templates
+    resources :campaign_templates, only: [ :new, :create, :show ]
   end
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

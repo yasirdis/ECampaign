@@ -2,7 +2,7 @@
 module Dashboard
   class CampaignTemplatesController < ApplicationController
     def new
-      @template = CampaignTemplate.new
+      @campaign_template = CampaignTemplate.new
     end
 
     def create
@@ -14,10 +14,14 @@ module Dashboard
       end
     end
 
+    def show
+      
+    end
+
     private
 
     def template_params
-      params.require(:campaign_template).permit(:name, :html_code, :css_code, :organization_id, images: [])
+      params.require(:campaign_template).permit(:name, :html_code, :css_code, :campaign_id, images: [])
     end
   end
 end

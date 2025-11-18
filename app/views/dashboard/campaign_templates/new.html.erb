@@ -1,55 +1,30 @@
-<div class="grid grid-cols-2 gap-4">
-  <!-- Section 1: Input HTML -->
-  <section>
-    <h2>Edit Template</h2>
-    <%= form_with model: @email_template, data: { turbo_frame: "preview_frame" } do |f| %>
-      <%= f.text_area :content, rows: 20, class: "w-full border p-2" %>
-      <%= f.submit "Update Preview", class: "btn btn-primary" %>
+<div class="container">
+  <div class="m-5">
+    <%= form_with model: @campaign_template, url: dashboard_campaign_templates_path, 
+              method: :post do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, "NAME" ,class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= f.label :html_code, "HTML Code", class: "form-label" %>
+      <%= f.text_area :html_code, rows: 10, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= f.label :css_code, "CSS Code", class:"form-label" %>
+      <%= f.text_area :css_code, rows: 5, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :campaign_id, "campaign_id" ,class: "form-label" %>
+      <%= f.text_field :campaign_id, class: "form-control" %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.submit "Create Template", class: "btn btn-primary" %>
+    </div>
     <% end %>
-  </section>
-
-  <!-- Section 2: Preview -->
-  <section>
-    <h2>Preview</h2>
-    <%= turbo_frame_tag "preview_frame" do %>
-      <div class="border p-4 bg-gray-50" id="email-preview">
-        <%= raw @email_template.content %>
-      </div>
-    <% end %>
-  </section>
+  </div>
 </div>
-<div data-controller="preview">
-  <textarea data-preview-target="input" rows="20" class="w-full border"></textarea>
-  <div data-preview-target="preview" class="border p-4 bg-gray-50"></div>
-</div>
-
-<%= turbo_stream.replace "preview_frame" do %>
-  <div class="border p-4 bg-gray-50" id="email-preview">
-    <%= raw @email_template.content %>
-  </div>
-<% end %>
-
-<%= form_with model: @campaign_template do |f| %>
-  <div class="mb-3">
-    <%= f.label :name, "NAME" ,class: "form-label" %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-
-  <div>
-    <%= f.label :html_code, "HTML Code", class: "form-label" %>
-    <%= f.text_area :html_code, rows: 10, class: "form-control" %>
-  </div>
-
-  <div>
-    <%= f.label :css_code, "CSS Code", class:"form-label" %>
-    <%= f.text_area :css_code, rows: 5, class: "form-control" %>
-  </div>
-
-  <div>
-    <%= f.label :images, "Upload Images", class="form-label" %>
-    <%= f.file_field :images, multiple: true, class: "form-control" %>
-  </div>
-
-  <div class="mt-4">
-    <%= f.submit "Create Template", class: "btn btn-primary" %>
-  </div>
