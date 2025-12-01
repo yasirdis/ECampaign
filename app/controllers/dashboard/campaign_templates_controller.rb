@@ -1,6 +1,9 @@
 # app/controllers/dashboard/campaign_templates_controller.rb
 module Dashboard
   class CampaignTemplatesController < ApplicationController
+    def index
+      @campaign_templates = CampaignTemplate.where(campaign_id: params[:campaign_id])
+    end
     def new
       @campaign_template = CampaignTemplate.new
     end
@@ -15,7 +18,27 @@ module Dashboard
     end
 
     def show
-      
+        @campaign_template = CampaignTemplate.find(params[:id])
+    end
+
+    def graphjs_email_studio
+      @campaign_template = CampaignTemplate.find(params[:id])
+    end
+
+    def save_asset
+      puts "//////////////////"
+    end
+
+    def destroy_asset
+    end
+
+    def project_load
+      puts "jjjjjjjjjj"
+    end
+
+    def project_save
+      puts "rrrrrrrrr------------------ rrr"
+      puts params[:project]
     end
 
     private

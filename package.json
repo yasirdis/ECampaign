@@ -11,6 +11,7 @@
     "defaults"
   ],
   "dependencies": {
+    "@grapesjs/studio-sdk": "^1.0.56",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1"
   },

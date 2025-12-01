@@ -1,0 +1,25 @@
+<div class="mt-5 container">
+
+    <h1> Campaign Templates</h1>
+    <!-- create new button-->
+        <%= link_to graphjs_email_studio_dashboard_campaign_template_path(1), class:  "btn btn-primary btn-lg" do %>
+            <i class="bi bi-file-earmark-plus-fill"></i> Create New
+        <% end %>
+    <!-- /create new button-->
+    <!--campaign templates listing-->
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+        <% @campaign_templates.each do |campaign_template| %>
+                <div class="col">
+                    <div class="card h-100">
+                    <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= campaign_template.name %></h5>
+                        </div>
+                        <%= link_to dashboard_campaign_template_path(campaign_template.id), class: "btn btn-primary m-1" do %>
+                                Edit
+                        <% end %>
+                    </div>
+                </div>
+        <% end %>
+    </div>
+</div>

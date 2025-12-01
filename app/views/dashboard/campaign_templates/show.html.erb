@@ -1,0 +1,51 @@
+<div class="container my-5">
+
+  <h3 class="mb-4">Campaign Template Details</h3>
+  <%= link_to graphjs_email_studio_dashboard_campaign_template_path(@campaign_template.id), class:  "btn btn-primary btn-lg" do %>
+      <i class="bi bi-pencil-square"></i> Edit in GraphJS studio
+  <% end %>
+  <div class="row">
+    <!-- LEFT SIDE: Form -->
+    <div class="col-md-6">
+      <%= form_with model: @campaign_template, url: "#", method: :get, disabled: true do |f| %>
+
+        <div class="mb-3">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :created_at, "Created At", class: "form-label" %>
+          <%= f.text_field :created_at, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :updated_at, "Last Updated", class: "form-label" %>
+          <%= f.text_field :updated_at, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :html_code, class: "form-label" %>
+          <%= f.text_area :html_code, rows: 25, class: "form-control" %>
+        </div>
+
+      <% end %>
+
+      <div class="mt-4">
+        <%= link_to "Back", dashboard_campaign_templates_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: HTML PREVIEW -->
+    <div class="col-md-6">
+      <h5 class="mb-3">HTML Preview</h5>
+
+      <iframe
+        class="w-100"
+        style="height: 800px; border: 1px solid #774646ff;"
+        srcdoc="<%= @campaign_template.html_code %>">
+      </iframe>
+    </div>
+  </div>
+</div>
+<div data-controller="grapejs-email-studio" style="height:100vh;"></div>

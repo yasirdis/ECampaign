@@ -1,30 +1,30 @@
-<div class="container">
-  <div class="m-5">
-    <%= form_with model: @campaign_template, url: dashboard_campaign_templates_path, 
-              method: :post do |f| %>
-    <div class="mb-3">
-      <%= f.label :name, "NAME" ,class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
+<h3 class="mb-4">Campaign Template Details</h3>
 
-    <div>
-      <%= f.label :html_code, "HTML Code", class: "form-label" %>
-      <%= f.text_area :html_code, rows: 10, class: "form-control" %>
-    </div>
+<%= form_with model: @campaign_template, url: "#", method: :get, disabled: true do |f| %>
 
-    <div>
-      <%= f.label :css_code, "CSS Code", class:"form-label" %>
-      <%= f.text_area :css_code, rows: 5, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :campaign_id, "campaign_id" ,class: "form-label" %>
-      <%= f.text_field :campaign_id, class: "form-control" %>
-    </div>
-
-    <div class="mt-4">
-      <%= f.submit "Create Template", class: "btn btn-primary" %>
-    </div>
-    <% end %>
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
+
+  <div class="mb-3">
+    <%= f.label :description, class: "form-label" %>
+    <%= f.text_area :description, rows: 4, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :created_at, "Created At", class: "form-label" %>
+    <%= f.text_field :created_at, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :updated_at, "Last Updated", class: "form-label" %>
+    <%= f.text_field :updated_at, class: "form-control" %>
+  </div>
+
+<% end %>
+
+<div class="mt-4">
+  <%= link_to "Back", dashboard_campaign_templates_path, class: "btn btn-secondary" %>
+  <%= link_to "Edit Template", edit_dashboard_campaign_template_path(@campaign_template), class: "btn btn-primary ms-2" %>
 </div>
