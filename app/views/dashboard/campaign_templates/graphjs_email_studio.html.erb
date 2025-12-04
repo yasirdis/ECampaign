@@ -19,13 +19,22 @@
         assets: {
           storageType: 'self',
           // Provide a custom upload handler for assets
-          onUpload: async ({ files }) => {
+          onUpload: async ({ files }) => {  
             const body = new FormData();
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
             for (const file of files) {
               body.append('files', file);
             }
-            alert("ssssssss");
-            const response = await fetch('/dashboard/campaign_templates/<%= @campaign_template.id %>/save_asset', { method: 'POST', body });
+            const response = await fetch(
+              "<%= save_asset_dashboard_campaign_template_path(@campaign_template) %>",
+              {
+                method: "POST",
+                headers: {
+                  "X-CSRF-Token": csrfToken
+                },
+                body
+              }
+            );
             const result = await response.json();
             // The expected result should be an array of assets, eg.
             // [{ src: 'ASSET_URL' }]
@@ -33,9 +42,15 @@
           },
           // Provide a custom handler for deleting assets
           onDelete: async ({ assets }) => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
             const body = JSON.stringify(assets);
                              
-            await fetch("<%= save_asset_dashboard_campaign_template_path(@campaign_template.id) %>", { method: "POST", body });
+            await fetch("<%= destroy_asset_dashboard_campaign_template_path(@campaign_template.id) %>",
+            { method: "POST", body,
+              headers: {
+                "X-CSRF-Token": csrfToken,
+              }
+            });
           }
         },
         storage: {
@@ -48,7 +63,7 @@
             const body = new FormData();
             body.append('project', JSON.stringify(project));
             // await fetch('<%= save_asset_dashboard_campaign_template_path(@campaign_template.id) %>', { method: 'POST', body });
-            await fetch('<%= save_asset_dashboard_campaign_template_path(@campaign_template.id) %>', {
+            await fetch('<%= project_save_dashboard_campaign_template_path(@campaign_template.id) %>', {
               method: 'POST',
               headers: {
                 'X-CSRF-Token': csrfToken
@@ -58,11 +73,17 @@
           },
           // Provide a custom handler for loading project data.
           onLoad: async () => {
-            throw new Error('Implement your "onLoad"!');
-            const response = await fetch('/dashboard/campaign_templates/<%= @campaign_template.id %>/project_load');
-            const project = await response.json();
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            const response = await fetch('<%= project_load_dashboard_campaign_template_path(@campaign_template.id) %>', {
+              method: 'GET',
+              headers: {
+                'X-CSRF-Token': csrfToken
+              }
+            });
+            const result = await response.json();
+            console.log("Loaded project data:", result);
             // The project JSON is expected to be returned inside an object.
-            return { project };
+            return { project: result.project };
           },
           autosaveChanges: 100,
           autosaveIntervalMs: 10000

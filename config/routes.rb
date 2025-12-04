@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         post :save_asset
         delete :destroy_asset
         post :project_save
-        post :project_load
+        get :project_load
       end
     end
   end

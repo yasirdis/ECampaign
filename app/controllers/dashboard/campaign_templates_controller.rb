@@ -22,23 +22,97 @@ module Dashboard
     end
 
     def graphjs_email_studio
-      @campaign_template = CampaignTemplate.find(params[:id])
+      if params[:id].present?
+        @campaign_template = CampaignTemplate.find(params[:id])
+        puts "////////sssssssssssssssssss"
+        { project: @campaign_template.html_code || "{}" }
+      else
+        render json: { error: "No template ID provided" }, status: :unprocessable_entity
+      end
     end
 
     def save_asset
-      puts "//////////////////"
+      file = params[:files]
+      if file.nil?
+        render json: { error: "No file uploaded" }, status: :unprocessable_entity
+        return
+      end
+      blob = ActiveStorage::Blob.create_and_upload!(
+              io: file.tempfile,
+              filename: file.original_filename,
+              content_type: file.content_type
+            )
+      render json: [
+        { src: url_for(blob) }
+      ]
     end
 
     def destroy_asset
+      @campaign_template = CampaignTemplate.find(params[:id])
+
+      # Parse JSON string coming from GrapesJS
+      project_data = JSON.parse(params[:project])
+      assets = project_data["assets"] || []
+
+      deleted = []
+
+      assets.each do |asset|
+        url = asset["src"]
+
+        # Extract signed id from ActiveStorage URL
+        # URL format:
+        # /rails/active_storage/blobs/redirect/<SIGNED_ID>/<filename>
+        if url =~ /blobs\/redirect\/([^\/]+)\//
+          signed_id = Regexp.last_match(1)
+
+          begin
+            blob = ActiveStorage::Blob.find_signed(signed_id)
+
+            # Remove the blob and its attachment
+            blob.attachments.each(&:purge)
+            blob.purge
+
+            deleted << url
+          rescue ActiveSupport::MessageVerifier::InvalidSignature
+            Rails.logger.warn "Invalid signed_id: #{signed_id}"
+          end
+        end
+      end
+
+      render json: { deleted: deleted }
     end
 
+
     def project_load
-      puts "jjjjjjjjjj"
+      if params[:id].present?
+        @campaign_template = CampaignTemplate.find(params[:id])
+        raw = @campaign_template.html_code
+
+        # If stored as Ruby hash string ("key"=>value)
+        if raw.is_a?(String)
+          json = raw.gsub("=>", ":")       # convert Ruby hash syntax to JSON
+          json = JSON.parse(json) rescue {}
+        else
+          json = raw
+        end
+
+        render json: { project: json || "{}" }
+      else
+        render json: { error: "No template ID provided" }, status: :unprocessable_entity
+      end
     end
 
     def project_save
-      puts "rrrrrrrrr------------------ rrr"
-      puts params[:project]
+      if params[:project].present? and params[:id].present?
+        @campaign_template = CampaignTemplate.find(params[:id])
+        project_hash = JSON.parse(params[:project])
+        @campaign_template.update(html_code: project_hash)
+        head :ok
+      elsif params[:project].present?
+        CampaignTemplate.create(html_code: params[:project], name: "Untitled")
+      else
+        render json: { error: "No project data provided" }, status: :unprocessable_entity
+      end
     end
 
     private
