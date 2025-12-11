@@ -2,7 +2,7 @@
 
     <h1> Campaign Templates</h1>
     <!-- create new button-->
-        <%= link_to graphjs_email_studio_dashboard_campaign_template_path(1), class:  "btn btn-primary btn-lg" do %>
+        <%= link_to new_dashboard_campaign_template_path(campaign_id: @campaign_id), class:  "btn btn-primary btn-lg" do %>
             <i class="bi bi-file-earmark-plus-fill"></i> Create New
         <% end %>
     <!-- /create new button-->

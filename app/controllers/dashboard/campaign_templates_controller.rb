@@ -3,9 +3,11 @@ module Dashboard
   class CampaignTemplatesController < ApplicationController
     def index
       @campaign_templates = CampaignTemplate.where(campaign_id: params[:campaign_id])
+      @campaign_id = params[:campaign_id]
     end
     def new
       @campaign_template = CampaignTemplate.new
+      @campaign_id = params[:campaign_id]
     end
 
     def create
@@ -18,13 +20,13 @@ module Dashboard
     end
 
     def show
-        @campaign_template = CampaignTemplate.find(params[:id])
+      @campaign_template = CampaignTemplate.find(params[:id])
+      @campaign_id = @campaign_template.campaign_id
     end
 
     def graphjs_email_studio
       if params[:id].present?
         @campaign_template = CampaignTemplate.find(params[:id])
-        puts "////////sssssssssssssssssss"
         { project: @campaign_template.html_code || "{}" }
       else
         render json: { error: "No template ID provided" }, status: :unprocessable_entity
