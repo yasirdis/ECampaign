@@ -34,6 +34,10 @@
       <div class="mt-4">
         <%= link_to "Back", dashboard_campaign_templates_path(campaign_id: @campaign_id), class: "btn btn-secondary" %>
       </div>
+
+      <div class="mt-4"> 
+        <%= link_to "Send Now", send_campaign_dashboard_campaign_template_path(@campaign_template.id), class: "btn btn-secondary", data: { turbo_method: :post } %>
+      </div>
     </div>
 
     <!-- RIGHT SIDE: HTML PREVIEW -->

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         delete :destroy_asset
         post :project_save
         get :project_load
+        post :send_campaign
       end
     end
   end

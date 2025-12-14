@@ -1,6 +1,7 @@
 # app/controllers/dashboard/campaign_templates_controller.rb
 module Dashboard
   class CampaignTemplatesController < ApplicationController
+    before_action :find_by_id, only: [:send_campaign]
     def index
       @campaign_templates = CampaignTemplate.where(campaign_id: params[:campaign_id])
       @campaign_id = params[:campaign_id]
@@ -117,7 +118,17 @@ module Dashboard
       end
     end
 
+    def send_campaign
+
+      Campaigns::CampaignMailer.send_campaign(to: "test@email.com", subject: "Test Subject", html: "<h1>Hello World</h1>").deliver_now
+      render plain: "Campaign sent!"
+    end
+
     private
+
+    def find_by_id
+      @campaign_template = CampaignTemplate.find(params[:id])
+    end
 
     def template_params
       params.require(:campaign_template).permit(:name, :html_code, :css_code, :campaign_id, images: [])

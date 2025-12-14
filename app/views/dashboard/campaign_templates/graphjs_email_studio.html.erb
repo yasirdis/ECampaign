@@ -56,7 +56,9 @@
         storage: {
           type: 'self',
           // Provide a custom handler for saving the project data.
-          onSave: async ({ project }) => {
+          onSave: async ({ editor, project }) => {
+            const mjml = editor.getHtml();
+            // const css = editor.getCss();
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
             // throw new Error('Implement your "onSave"!');
