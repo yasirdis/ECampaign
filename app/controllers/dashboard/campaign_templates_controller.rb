@@ -1,7 +1,7 @@
 # app/controllers/dashboard/campaign_templates_controller.rb
 module Dashboard
   class CampaignTemplatesController < ApplicationController
-    before_action :find_by_id, only: [:send_campaign]
+    before_action :find_by_id, only: [ :send_campaign ]
     def index
       @campaign_templates = CampaignTemplate.where(campaign_id: params[:campaign_id])
       @campaign_id = params[:campaign_id]
@@ -23,6 +23,7 @@ module Dashboard
     def show
       @campaign_template = CampaignTemplate.find(params[:id])
       @campaign_id = @campaign_template.campaign_id
+      @html_code = MjmlRenderer.to_html(@campaign_template.mjml)
     end
 
     def graphjs_email_studio
@@ -105,23 +106,28 @@ module Dashboard
       end
     end
 
-    def project_save
+    def template_save
       if params[:project].present? and params[:id].present?
         @campaign_template = CampaignTemplate.find(params[:id])
         project_hash = JSON.parse(params[:project])
-        @campaign_template.update(html_code: project_hash)
+        @campaign_template.update(html_code: project_hash, mjml: params[:mjml])
         head :ok
       elsif params[:project].present?
-        CampaignTemplate.create(html_code: params[:project], name: "Untitled")
+        CampaignTemplate.create(html_code: params[:project], name: "Untitled", mjml: params[:mjml])
       else
         render json: { error: "No project data provided" }, status: :unprocessable_entity
       end
     end
 
     def send_campaign
-
       Campaigns::CampaignMailer.send_campaign(to: "test@email.com", subject: "Test Subject", html: "<h1>Hello World</h1>").deliver_now
       render plain: "Campaign sent!"
+    end
+
+    def mjml_preview
+      template = CampaignTemplate.find(params[:id])
+
+      @html = MjmlRenderer.to_html(template.mjml).html_safe
     end
 
     private

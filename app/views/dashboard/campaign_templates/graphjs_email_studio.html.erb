@@ -64,8 +64,9 @@
             // throw new Error('Implement your "onSave"!');
             const body = new FormData();
             body.append('project', JSON.stringify(project));
+            body.append('mjml', mjml);
             // await fetch('<%= save_asset_dashboard_campaign_template_path(@campaign_template.id) %>', { method: 'POST', body });
-            await fetch('<%= project_save_dashboard_campaign_template_path(@campaign_template.id) %>', {
+            await fetch('<%= template_save_dashboard_campaign_template_path(@campaign_template.id) %>', {
               method: 'POST',
               headers: {
                 'X-CSRF-Token': csrfToken

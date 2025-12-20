@@ -18,9 +18,10 @@ Rails.application.routes.draw do
         get :graphjs_email_studio
         post :save_asset
         delete :destroy_asset
-        post :project_save
+        post :template_save
         get :project_load
         post :send_campaign
+        # get :mjml_preview
       end
     end
   end
