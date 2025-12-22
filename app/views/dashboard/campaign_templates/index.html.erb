@@ -11,7 +11,14 @@
         <% @campaign_templates.each do |campaign_template| %>
                 <div class="col">
                     <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
+                              <iframe
+                                class="w-100"
+                                sandbox
+                                tabindex="-1"
+                                aria-hidden="true"
+                                loading="lazy"
+                                srcdoc="<%= MjmlRenderer.to_html(campaign_template.mjml) %>">
+                            </iframe>
                         <div class="card-body">
                             <h5 class="card-title"><%= campaign_template.name %></h5>
                         </div>
