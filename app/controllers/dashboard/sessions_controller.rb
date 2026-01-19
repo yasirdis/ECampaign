@@ -11,7 +11,11 @@ module Dashboard
     end
 
     def after_sign_in_path_for(resource)
-      session[:current_organization_id] = resource.organizations.first.id if resource.organizations.any?
+      session[:current_organization_id] = if resource.organizations.any?
+       resource.organizations.first.id
+      else
+        nil
+      end
       dashboard_analytics_path
     end
 

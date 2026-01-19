@@ -5,7 +5,25 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
           <span class="navbar-toggler-icon border-white"></span>
         </button>
-      <% end %>
+        <!----Drop down------>
+        <% if session[:current_organization_id] %>     
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= Organization.find(session[:current_organization_id]).name %>
+          </button>
+          <ul class="dropdown-menu">
+            <% Organization.where(id: current_user.organizations).each do |org| %>
+              <li>              <%= link_to org.name,
+                switch_dashboard_organization_path(org.id),
+                data: { turbo: :false },
+                class: "dropdown-item" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+        <!------/Drop down------->
+    <% end %>
     <a class="navbar-brand" href="#">
       <%= turbo_frame_tag "logo" do %>
         <%= render module_partial("logo") %>
