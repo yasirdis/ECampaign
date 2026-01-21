@@ -8,7 +8,7 @@ module Dashboard
       org = current_user.organizations.find(params[:id])
       session[:current_organization_id] = org.id
 
-      redirect_to dashboard_users_path(type_of: "dashboard_users")
+      redirect_to dashboard_analytics_path
     end
   end
 end

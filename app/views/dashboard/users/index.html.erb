@@ -11,6 +11,7 @@
             <th scope="col">Logged From IP</th>
             <th scope="col">Last Logged In At</th>
             <th scope="col">Highest Access Roles</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,15 @@
             <td><%=user.logged_in_from_ip%></td>
             <td><%=user.last_logged_in_at%></td>
             <td><%=user.highest_access_role %></td>
+            <td><%= link_to dashboard_user_path(user.id), id: "edit",
+                    data: { 
+                      controller: "tooltip",
+                      bs_toggle: "tooltip",
+                      bs_placement: "top",
+                      bs_title: "Edit" } do %>
+                  <i class="bi bi-pencil-square"></i>
+                <% end %>
+            </td>
           </tr>
 
       <% end %>
