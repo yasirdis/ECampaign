@@ -1,6 +1,9 @@
 <div class="mt-5 container">
     <h1> Campaigns</h1>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <%= link_to new_dashboard_campaign_path, class:  "btn btn-primary btn-lg" do %>
+            <i class="bi bi-file-earmark-plus-fill"></i> Create New
+        <% end %>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
         <% @campaigns.each do |campaign| %>
                 <div class="col">
                     <div class="card h-100">

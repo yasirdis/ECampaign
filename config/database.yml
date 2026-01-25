@@ -23,8 +23,8 @@ default: &default
 development:
   <<: *default
   database: e_campaign_development
-  username: dev
-  password: Pass@12345
+  username: superuser_yasir
+  password: pass123
   host: localhost
   port: 5432
 
@@ -61,8 +61,8 @@ development:
 test:
   <<: *default
   database: e_campaign_test
-  username: dev
-  password: Pass@12345
+  username: superuser_yasir
+  password: pass123
   host: localhost
   port: 5432
 

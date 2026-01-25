@@ -1,0 +1,30 @@
+.bg-rotate {
+  position: relative;      /* important for pseudo-element positioning */
+  overflow: hidden;        /* prevents overflow when rotating */
+}
+
+.bg-rotate::before {
+  content: "";
+  position: absolute;
+  inset: -50%; /* extra space to prevent corners from cutting off */
+  background-image: url("/assets_static/images/e_campign_primary_bg_image.avif");
+  background-size: auto 150%; /* adjust size as needed */
+  background-position: center;
+  z-index: -1; /* behind content */
+  animation: rotate 10s linear infinite; /* slow, smooth rotation */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.gb-background {
+  background-image: url("/assets_static/images/e_campign_primary_bg_image.avif");
+  background-size: cover;
+  background-position: center;
+}

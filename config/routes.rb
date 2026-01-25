@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     resources :users, only: [ :index, :show ]
     resources :analytics
-    resources :campaigns, only: [ :index ]
+    resources :campaigns, only: [ :index, :create, :new ]
     resources :campaign_templates, only: [ :index, :new, :create, :show ] do
       member do
         get :graphjs_email_studio

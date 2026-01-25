@@ -19,26 +19,33 @@
   
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "google_fonts", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "background", "data-turbo-track": "reload" %>
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-<!-- Header -->
-    <%= turbo_frame_tag "header" do %>
-      <%= render module_partial("header") %>
-    <% end %>
+  <!-- Header -->
+    <header>
+      <%= turbo_frame_tag "header" do %>
+        <%= render module_partial("header") %>
+      <% end %>
+    </header>
     <% if user_signed_in? %>
       <%= render module_partial("menu") %>
     <% end %>
 
-    <div class="pt-5">
+     <main>
       <%= yield %>
-    </div>
+    </main>
     
     
     <!-- Footer -->
+    <footer class="py-5 bg-dark text-white mt-auto">
     <%= turbo_frame_tag "footer" do %>
       <%= render module_partial("footer") %>
     <% end %>  
+    </footer>
   </body>
 </html>
